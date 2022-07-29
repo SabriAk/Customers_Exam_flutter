@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
-import 'hareket.dart';
+import 'package:flutter/material.dart';
+import 'package:ornek/pardus.dart';
+//import 'dart:html';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,149 +30,98 @@ class Iskele extends StatefulWidget {
 }
 
 class _IskeleState extends State<Iskele> {
-  TextEditingController title = TextEditingController();
-  TextEditingController t1 = TextEditingController();
-  TextEditingController t2 = TextEditingController();
-  TextEditingController t3 = TextEditingController();
   var GelenyaziBasligi = "";
   var GelenyaziIcerigi = "";
 
-  yaziEkle() {
+  yaziekle() {
     FirebaseFirestore.instance
-        .collection("Cari")
-        .doc(t1.text)
-        .set({'baslik': t1.text, 'icerik': t2.text}).whenComplete(
-            () => print("Cari Eklendi"));
-    //burası: map yapısıdır. değişken olarak tanımlanabilir
-    FirebaseFirestore.instance.collection("CariHareket").doc(t1.text).set(
-        {'adsoy': t1.text}).whenComplete(() => print("Carihareket Eklendi"));
-    //burası: map yapısıdır. değişken olarak tanımlanabilir
+        .collection('question')
+        .doc('Widget.question.id')
+        .update({
+      'ans': FieldValue.arrayUnion([
+        {'content': "freak", 'timestamp': DateTime.now(), 'username': "abishka"}
+      ])
+    }).whenComplete(() => print("yazı eklendi"));
   }
 
-  CariEkle() {
+  yazigetir() {
     FirebaseFirestore.instance
-        .collection("CariGercek")
-        .doc(t1.text)
-        .set({'baslik': t1.text, 'icerik': t2.text}).whenComplete(
-            () => print("Cari Eklendi"));
-    //burası: map yapısıdır. değişken olarak tanımlanabilir
-    FirebaseFirestore.instance.collection("CariHareket").doc(t1.text).set(
-        {'adsoy': t1.text}).whenComplete(() => print("Carihareket Eklendi"));
-    //burası: map yapısıdır. değişken olarak tanımlanabilir
-  }
-
-  guncelle() {
-    FirebaseFirestore.instance
-        .collection("Cari")
-        .doc(t1.text)
-        .update({'baslik': t1.text, 'icerik': t2.text}).whenComplete(
-            () => print("cari güncellendi"));
-  }
-
-  sil() {
-    FirebaseFirestore.instance
-        .collection("Cari")
-        .doc(t1.text)
-        .delete()
-        .whenComplete(() => print("Cari silindi"));
-    FirebaseFirestore.instance
-        .collection("CariHarket")
-        .doc(t1.text)
-        .delete()
-        .whenComplete(() => print("CariHarket silindi"));
-  }
-
-  oku() {
-    FirebaseFirestore.instance
-        .collection("Cari")
-        .doc(t1.text)
+        .collection("tv")
+        .doc('samsung2')
         .get()
         .then((Gelenveri) {
       setState(() {
-        GelenyaziBasligi = Gelenveri.data()!['baslik'];
-        GelenyaziIcerigi = Gelenveri.data()!['icerik'];
+        GelenyaziBasligi = Gelenveri.data()!['ad'];
+        GelenyaziIcerigi = Gelenveri.data()!['soyad'];
       });
+    });
+  }
+
+  arraygetir() {
+    setState(() {
+      GelenyaziBasligi = "array için denemedir";
+      GelenyaziIcerigi = "liste çağrılması içn hazırlık testidir";
+    });
+  }
+
+  yazigoster() {
+    Future<void> setAnswer() async {
+      var ans_Controller;
+      String ans = ans_Controller.text;
+      FirebaseFirestore db = FirebaseFirestore.instance;
+
+      await db.runTransaction((transaction) async {
+        DocumentReference qRef =
+            db.collection('question').doc('Widget.question.id');
+        await qRef.update({
+          'ans': FieldValue.arrayUnion([
+            {
+              'content': ans,
+              'timestamp': DateTime.now().toString(),
+              'username': '_currentUser.displayName',
+            }
+          ])
+        });
+      });
+    }
+
+    setState(() {
+      GelenyaziBasligi = "*başlık uyarı mesajıdır.";
+      GelenyaziIcerigi = "*içerik mesajı örneğidir.";
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        margin: EdgeInsets.all(50),
-        child: Center(
-          child: Column(
-            children: [
-              TextField(
-                controller: t1,
-              ),
-              TextField(
-                controller: t2,
-              ),
-              TextField(
-                controller: t3,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                          onPressed: yaziEkle, child: Text("YAZI_EKLE")),
-                      ElevatedButton(
-                          onPressed: CariEkle, child: Text("GERÇEK CARİ EKLE")),
-                      ElevatedButton(onPressed: oku, child: Text("OKU")),
-                    ],
-                  ),
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          margin: EdgeInsets.all(50),
+          child: Center(
+            child: Column(
+              children: [
+                Text('BİLGİ YOLLAMAK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(onPressed: yaziekle, child: Text("EKLE")),
+                Text('BİLGİ GETİRMEK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(onPressed: yazigetir, child: Text("GETİR")),
+                Text('ARRAY GETİRMEK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(
+                    onPressed: arraygetir, child: Text("ARRAY_LİSTE")),
+                Text('ARRAY2 GETİRMEK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(
+                    onPressed: yazigoster, child: Text("ARRAY2_YAZI_GOSTER")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (_) => pardus()));
+                    },
+                    child: Text("SAYFA DEĞİŞ")),
+                ListTile(
+                  title: Text(GelenyaziBasligi),
+                  subtitle: Text(GelenyaziIcerigi),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                          onPressed: guncelle, child: Text("GUNCELLE")),
-                      ElevatedButton(onPressed: sil, child: Text("DELETE")),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (_) => hareket()));
-                          },
-                          child: Text("LİSTE")),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (_) => hareket()));
-                          },
-                          child: Text("CARİ")),
-                    ],
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Text(GelenyaziBasligi),
-                subtitle: Text(GelenyaziIcerigi),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
