@@ -59,11 +59,12 @@ class _finansState extends State<finans> {
       appBar: AppBar(
         actions: [
           MaterialButton(
+            color: Colors.green,
             onPressed: () {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (_) => pardus()));
             },
-            child: Text("Hareket Listesi"),
+            child: Text("Back to the List"),
           ),
         ],
       ),
@@ -107,7 +108,7 @@ class _finansState extends State<finans> {
                     controller: t4,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'alacak giriniz',
+                      labelText: 'input income',
                     ),
                   ),
                   TextField(
@@ -116,7 +117,7 @@ class _finansState extends State<finans> {
                     controller: t5,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'borç giriniz',
+                      labelText: 'input expense',
                     ),
                   ),
                   TextField(
@@ -125,7 +126,7 @@ class _finansState extends State<finans> {
                     controller: t6,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'açıklama giriniz',
+                      labelText: 'explain',
                     ),
                   ),
                   TextField(
@@ -134,7 +135,7 @@ class _finansState extends State<finans> {
                     controller: t7,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Proje kodu Giriniz',
+                      labelText: 'project code:(exam:p1)',
                     ),
                   ),
                   Padding(
@@ -149,7 +150,7 @@ class _finansState extends State<finans> {
                                     MaterialPageRoute(
                                         builder: (_) => pardus()));
                               },
-                              child: Text("LİSTELE")),
+                              child: Text("<<==BackList")),
                           ElevatedButton(
                               onPressed: addHareket,
                               child: Text("FİNANS_EKLE")),

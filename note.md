@@ -100,15 +100,22 @@ class _IskeleState extends State<Iskele> {
           child: Center(
             child: Column(
               children: [
-                Text(
-                    'explain: THIS A TEST FOR ENTRANCE , PRESS BELOW BUTTON FOR SEEIN TITLE AND CONTENT '),
-                ElevatedButton(onPressed: yazigoster, child: Text("TEST")),
+                Text('BİLGİ YOLLAMAK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(onPressed: yaziekle, child: Text("EKLE")),
+                Text('BİLGİ GETİRMEK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(onPressed: yazigetir, child: Text("GETİR")),
+                Text('ARRAY GETİRMEK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(
+                    onPressed: arraygetir, child: Text("ARRAY_LİSTE")),
+                Text('ARRAY2 GETİRMEK İÇİN BUTONA BASINIZ'),
+                ElevatedButton(
+                    onPressed: yazigoster, child: Text("ARRAY2_YAZI_GOSTER")),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacement(
                           context, MaterialPageRoute(builder: (_) => pardus()));
                     },
-                    child: Text("CHANGE THE PAGE, NEXT PAGE ==>")),
+                    child: Text("SAYFA DEĞİŞ")),
                 ListTile(
                   title: Text(GelenyaziBasligi),
                   subtitle: Text(GelenyaziIcerigi),

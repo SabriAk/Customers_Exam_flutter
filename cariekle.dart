@@ -75,11 +75,12 @@ class _cariekleState extends State<cariekle> {
       appBar: AppBar(
         actions: [
           MaterialButton(
+            color: Colors.red,
             onPressed: () {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (_) => pardus()));
             },
-            child: Text("cari listeye dön"),
+            child: Text("Back To To List"),
           ),
         ],
       ),
@@ -123,7 +124,7 @@ class _cariekleState extends State<cariekle> {
                     controller: t4,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'carigrup giriniz',
+                      labelText: 'add group',
                     ),
                   ),
                   TextField(
@@ -132,7 +133,7 @@ class _cariekleState extends State<cariekle> {
                     controller: t5,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'cariadı giriniz',
+                      labelText: 'input customer name',
                     ),
                   ),
                   TextField(
@@ -141,7 +142,7 @@ class _cariekleState extends State<cariekle> {
                     controller: t6,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Bakiye giriniz',
+                      labelText: 'Balance',
                     ),
                   ),
                   TextField(
@@ -150,7 +151,7 @@ class _cariekleState extends State<cariekle> {
                     controller: t7,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Para Birimi Giriniz',
+                      labelText: 'Currency Unit',
                     ),
                   ),
                   Padding(
@@ -173,9 +174,9 @@ class _cariekleState extends State<cariekle> {
                                     MaterialPageRoute(
                                         builder: (_) => pardus()));
                               },
-                              child: Text("LİSTELE")),
+                              child: Text("<==List")),
                           ElevatedButton(
-                              onPressed: addCari, child: Text("ADD CARİ")),
+                              onPressed: addCari, child: Text("ADD_NAME")),
                           ElevatedButton(
                               onPressed: () {
                                 Navigator.pushReplacement(
@@ -183,9 +184,9 @@ class _cariekleState extends State<cariekle> {
                                     MaterialPageRoute(
                                         builder: (_) => finans()));
                               },
-                              child: Text("FİNANS")),
+                              child: Text("FINANCE")),
                           ElevatedButton(
-                              onPressed: caribul, child: Text("CARİ_BUL")),
+                              onPressed: caribul, child: Text("FIND_NAME")),
                         ],
                       ),
                     ),

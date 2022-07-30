@@ -53,10 +53,10 @@ class _pardusState extends State<pardus> {
         actions: [
           MaterialButton(
             onPressed: () {
-              //Navigator.pushReplacement(
-              //   context, MaterialPageRoute(builder: (_) => cariekle()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => Iskele()));
             },
-            child: Text("BOŞ"),
+            child: Text("Test Menu"),
           ),
         ],
       ),
@@ -80,22 +80,25 @@ class _pardusState extends State<pardus> {
                   return new DataTable(
                     columns: <DataColumn>[
                       new DataColumn(
-                        label: Text('Cari Grup'),
+                        label: Text('Name Group'),
                       ),
                       new DataColumn(
-                        label: Text('Cari Adı'),
+                        label: Text('Name'),
                       ),
                       new DataColumn(
-                        label: Text('Bakiye'),
+                        label: Text('Balance'),
                       ),
                       new DataColumn(
-                        label: Text('Cari Para Birimi'),
+                        label: Text('Current Unit'),
                       ),
                       new DataColumn(
-                        label: Text('Düzenle'),
+                        label: Text('EditName'),
                       ),
                       new DataColumn(
-                        label: Text('Sil'),
+                        label: Text('AddMoney'),
+                      ),
+                      new DataColumn(
+                        label: Text('Delete'),
                       ),
                     ],
                     rows: _createRows(snapshot.data!, context),
@@ -127,7 +130,18 @@ List<DataRow> _createRows(QuerySnapshot snapshot, context) {
         },
         icon: Icon(
           Icons.edit,
-          color: Color.fromARGB(255, 48, 26, 241),
+          color: Colors.blue,
+        ),
+      )),
+      DataCell(IconButton(
+        onPressed: () {
+          print("DÜZENLEME BUTONU başarılı");
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => finans()));
+        },
+        icon: Icon(
+          Icons.edit_attributes,
+          color: Color.fromARGB(255, 35, 240, 8),
         ),
       )),
       // ignore: prefer_const_constructors
